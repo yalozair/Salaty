@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>مواقيتي — أوقات الصلاة والأذان والمصحف</title>
+  <meta name="description" content="تطبيق مواقيتي لأوقات الصلاة، الأذان، المصحف، والأذكار على أندرويد وويندوز.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root { --green:#004d40; --teal:#0d7377; --gold:#c5a059; --ink:#14221f; --paper:#f6f3ec; }
+    * { box-sizing: border-box; }
+    body { margin:0; font-family:"Cairo",sans-serif; color:var(--ink); background:var(--paper); }
+    a { color:inherit; }
+    header { background:linear-gradient(135deg,#00352c,#0d7377 55%,#c5a059); color:#fff; padding:28px 8vw 72px; }
+    nav { display:flex; justify-content:space-between; align-items:center; }
+    nav strong { font-size:22px; }
+    nav a { color:#fff; text-decoration:none; margin-inline-start:18px; opacity:.9; }
+    .hero { max-width:760px; margin-top:48px; }
+    .hero h1 { font-size:clamp(32px,5vw,54px); line-height:1.25; margin:0 0 12px; }
+    .hero p { font-size:18px; line-height:1.8; opacity:.95; }
+    .cta { display:flex; gap:12px; flex-wrap:wrap; margin-top:22px; }
+    .btn { background:#fff; color:var(--green); text-decoration:none; padding:12px 18px; border-radius:14px; font-weight:700; }
+    .btn.alt { background:transparent; color:#fff; border:1px solid rgba(255,255,255,.7); }
+    main { margin-top:-40px; padding:0 8vw 64px; }
+    .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:16px; }
+    .card { background:#fff; border-radius:20px; padding:20px; box-shadow:0 10px 30px rgba(0,40,30,.06); }
+    .card h3 { margin:0 0 8px; color:var(--green); }
+    .card p { margin:0; line-height:1.7; color:#3d4f4b; }
+    section { margin-top:42px; }
+    h2 { font-size:28px; margin:0 0 16px; }
+    footer { background:var(--green); color:#fff; padding:28px 8vw; display:flex; justify-content:space-between; gap:16px; flex-wrap:wrap; }
+    footer a { color:#ffe7a3; }
+  </style>
+</head>
+<body>
+  <header>
+    <nav>
+      <strong>مواقيتي</strong>
+      <div>
+        <a href="#features">المميزات</a>
+        <a href="#download">التحميل</a>
+        <a href="#about">المصمّم</a>
+      </div>
+    </nav>
+    <div class="hero">
+      <h1>أوقات الصلاة، الأذان، والمصحف في تطبيق واحد</h1>
+      <p>مواقيتي يحسب المواقيت حسب موقعك، يؤذّن في وقت الصلاة، ويتيح قراءة مصحف المدينة حتى بدون إنترنت بعد تنزيله. يعمل على أندرويد وويندوز.</p>
+      <div class="cta">
+        <a class="btn" href="https://github.com/yalozair/Salaty/releases/latest/download/Salaty-latest.apk">تحميل أندرويد</a>
+        <a class="btn alt" href="https://github.com/yalozair/Salaty/releases/latest/download/Salaty-Setup.exe">تثبيت ويندوز</a>
+      </div>
+    </div>
+  </header>
+  <main>
+    <section id="features">
+      <h2>المميزات</h2>
+      <div class="grid">
+        <article class="card"><h3>مواقيت دقيقة</h3><p>حساب أم القرى افتراضياً، مع إمكانية تغيير طريقة الحساب وتعديل كل صلاة بالدقائق.</p></article>
+        <article class="card"><h3>أذان لكل صلاة</h3><p>صوت أذان كامل، أو إشعار فقط بصوت تختاره، ومستوى صوت مستقل لكل صلاة.</p></article>
+        <article class="card"><h3>أثناء المكالمة</h3><p>إذا كنت في اتصال أو مكالمة فيديو يظهر إشعار الوقت دون أن يقاطع الأذان صوت المتصل.</p></article>
+        <article class="card"><h3>مصحف المدينة</h3><p>صفحات المصحف مع تنزيل كامل للقراءة بدون إنترنت، وقراءة تفاعلية تعمل بلا اتصال.</p></article>
+        <article class="card"><h3>أذكار وتذكير الصيام</h3><p>أذكار الصباح والمساء وبعد الصلاة، وتذكير أيام الصيام ليلاً وقبل الفجر.</p></article>
+        <article class="card"><h3>تحديث من داخل التطبيق</h3><p>على ويندوز يُنزَّل التثبيت ويُشغَّل مباشرة. وعلى أندرويد يُحفظ الملف حتى لو منعت الحماية التثبيت.</p></article>
+      </div>
+    </section>
+    <section id="download">
+      <h2>التحميل</h2>
+      <div class="grid">
+        <article class="card">
+          <h3>أندرويد</h3>
+          <p>ملف APK مباشر. بعد التثبيت يمكن استلام التحديثات من داخل التطبيق.</p>
+          <p><a href="https://github.com/yalozair/Salaty/releases/latest">كل الإصدارات على GitHub</a></p>
+        </article>
+        <article class="card">
+          <h3>ويندوز</h3>
+          <p>مثبّت جاهز، أو نسخة محمولة بصيغة zip من صفحة الإصدار.</p>
+        </article>
+        <article class="card">
+          <h3>الويب</h3>
+          <p>نسخة المتصفح متاحة كملف مضغوط مع كل إصدار لمن يريد تشغيلها من متصفح.</p>
+        </article>
+      </div>
+    </section>
+    <section id="about">
+      <h2>المصمّم</h2>
+      <article class="card">
+        <h3>المهندس يوسف العزير</h3>
+        <p>أخصائي تقنية معلومات. تصميم وتطوير تطبيق مواقيتي، مع اهتمام بالدعم الفني وإدارة الشبكات وحل مشاكل الأجهزة والبرمجيات.</p>
+        <p>واتساب: <a href="https://wa.me/967773640964">967773640964</a> — تلجرام: <a href="https://t.me/Eng_yousifalozair">Eng_yousifalozair</a></p>
+      </article>
+    </section>
+  </main>
+  <footer>
+    <span>مواقيتي</span>
+    <a href="https://github.com/yalozair/Salaty">المستودع على GitHub</a>
+  </footer>
+</body>
+</html>
