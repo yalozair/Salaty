@@ -4,96 +4,285 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>مواقيتي — أوقات الصلاة والأذان والمصحف</title>
-  <meta name="description" content="تطبيق مواقيتي لأوقات الصلاة، الأذان، المصحف، والأذكار على أندرويد وويندوز.">
+  <meta name="description" content="تطبيق مواقيتي لأوقات الصلاة، الأذان، مصحف المدينة، والأذكار على أندرويد وويندوز.">
+  <meta property="og:title" content="مواقيتي">
+  <meta property="og:description" content="أوقات الصلاة، الأذان، والمصحف في تطبيق واحد.">
+  <meta property="og:image" content="images/hero-dawn.jpg">
+  <link rel="icon" href="images/icon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
   <style>
-    :root { --green:#004d40; --teal:#0d7377; --gold:#c5a059; --ink:#14221f; --paper:#f6f3ec; }
-    * { box-sizing: border-box; }
+    :root {
+      --green:#06352c; --teal:#0e7c74; --gold:#c5a059; --gold-2:#f0d48a;
+      --ink:#14221f; --muted:#5c6d68; --paper:#f4f1ea; --card:#fff;
+    }
+    * { box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
     body { margin:0; font-family:"Cairo",sans-serif; color:var(--ink); background:var(--paper); }
     a { color:inherit; }
-    header { background:linear-gradient(135deg,#00352c,#0d7377 55%,#c5a059); color:#fff; padding:28px 8vw 72px; }
-    nav { display:flex; justify-content:space-between; align-items:center; }
-    nav strong { font-size:22px; }
-    nav a { color:#fff; text-decoration:none; margin-inline-start:18px; opacity:.9; }
-    .hero { max-width:760px; margin-top:48px; }
-    .hero h1 { font-size:clamp(32px,5vw,54px); line-height:1.25; margin:0 0 12px; }
-    .hero p { font-size:18px; line-height:1.8; opacity:.95; }
+    img { max-width:100%; display:block; }
+    .nav {
+      position:sticky; top:0; z-index:20;
+      display:flex; align-items:center; justify-content:space-between;
+      padding:14px 7vw; background:rgba(6,32,28,.86); color:#fff;
+      backdrop-filter:blur(14px);
+    }
+    .brand { display:flex; align-items:center; gap:10px; font-weight:800; font-size:20px; text-decoration:none; }
+    .brand img { width:42px; height:42px; border-radius:12px; }
+    .nav-links { display:flex; gap:22px; align-items:center; }
+    .nav-links a { text-decoration:none; opacity:.92; }
+    .nav .btn { padding:8px 16px; }
+    .btn {
+      display:inline-flex; align-items:center; gap:8px; text-decoration:none;
+      background:linear-gradient(180deg,#f3dc9a,#c5a059); color:#1c1406;
+      font-weight:800; border-radius:14px; padding:12px 18px;
+    }
+    .btn.ghost { background:transparent; color:#fff; border:1px solid rgba(255,255,255,.45); }
+    .hero {
+      position:relative; color:#fff; overflow:hidden;
+      background:#04241f center/cover no-repeat;
+      background-image:linear-gradient(100deg,rgba(4,24,20,.92),rgba(4,24,20,.55)), url("images/hero-dawn.jpg");
+    }
+    .hero-inner {
+      display:grid; grid-template-columns:1.15fr .85fr; gap:40px; align-items:center;
+      padding:64px 7vw 80px;
+    }
+    .kicker { color:var(--gold-2); font-weight:700; letter-spacing:.4px; margin:0 0 8px; }
+    h1 { font-size:clamp(34px,5vw,58px); line-height:1.25; margin:0 0 14px; }
+    .lead { font-size:18px; line-height:1.9; color:rgba(255,255,255,.9); max-width:640px; }
     .cta { display:flex; gap:12px; flex-wrap:wrap; margin-top:22px; }
-    .btn { background:#fff; color:var(--green); text-decoration:none; padding:12px 18px; border-radius:14px; font-weight:700; }
-    .btn.alt { background:transparent; color:#fff; border:1px solid rgba(255,255,255,.7); }
-    main { margin-top:-40px; padding:0 8vw 64px; }
-    .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:16px; }
-    .card { background:#fff; border-radius:20px; padding:20px; box-shadow:0 10px 30px rgba(0,40,30,.06); }
-    .card h3 { margin:0 0 8px; color:var(--green); }
-    .card p { margin:0; line-height:1.7; color:#3d4f4b; }
-    section { margin-top:42px; }
-    h2 { font-size:28px; margin:0 0 16px; }
-    footer { background:var(--green); color:#fff; padding:28px 8vw; display:flex; justify-content:space-between; gap:16px; flex-wrap:wrap; }
-    footer a { color:#ffe7a3; }
+    .stats { display:flex; gap:18px; flex-wrap:wrap; margin-top:28px; }
+    .stat { background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.12); border-radius:16px; padding:12px 16px; min-width:120px; }
+    .stat b { display:block; font-size:20px; color:var(--gold-2); }
+    .phone {
+      width:280px; margin-inline:auto; background:#071512; border-radius:36px;
+      border:8px solid #1a1a1a; box-shadow:0 30px 70px rgba(0,0,0,.45); overflow:hidden;
+    }
+    .notch { height:22px; background:#1a1a1a; }
+    .screen { padding:14px 12px 16px; background:linear-gradient(#0c3d34,#071512 42%); min-height:460px; }
+    .screen h3 { margin:0; text-align:center; font-size:16px; }
+    .sub { text-align:center; color:#d7c48a; font-size:12px; margin:4px 0 12px; }
+    .row {
+      display:flex; justify-content:space-between; align-items:center;
+      background:rgba(255,255,255,.06); border-radius:12px; padding:9px 12px; margin-bottom:7px; font-size:14px;
+    }
+    .row.next { background:#fff; color:#06352c; font-weight:800; }
+    .row.next span { color:#8a6a2a; }
+    .caption { text-align:center; color:rgba(255,255,255,.7); font-size:12px; margin-top:10px; }
+    main { padding:8px 7vw 64px; }
+    section { margin-top:54px; }
+    h2 { font-size:32px; margin:0 0 8px; }
+    .section-lead { color:var(--muted); margin:0 0 22px; line-height:1.8; }
+    .grid { display:grid; grid-template-columns:repeat(3,1fr); gap:18px; }
+    .card { background:var(--card); border-radius:22px; overflow:hidden; box-shadow:0 12px 32px rgba(6,40,32,.08); }
+    .card img { height:180px; width:100%; object-fit:cover; }
+    .card div { padding:16px 18px 20px; }
+    .card h3 { margin:0 0 6px; color:var(--green); }
+    .card p { margin:0; color:var(--muted); line-height:1.75; }
+    .phones { display:flex; gap:28px; justify-content:center; flex-wrap:wrap; }
+    .mini { width:250px; }
+    .mini .screen { min-height:390px; background:#f7f1e4; color:#1b1b1b; }
+    .mini .ayah { font-size:18px; line-height:2; text-align:center; color:#1a1a1a; }
+    .mini .dark { background:#061814; color:#fff; min-height:390px; }
+    .adhan-title { text-align:center; font-size:28px; margin:28px 0 6px; }
+    .gold { color:var(--gold); text-align:center; }
+    .dl { display:grid; grid-template-columns:1fr 1fr; gap:18px; }
+    .dl article {
+      border-radius:24px; overflow:hidden; min-height:280px; color:#fff; position:relative;
+      background:#06352c center/cover no-repeat; display:flex; align-items:flex-end;
+    }
+    .dl article::before { content:""; position:absolute; inset:0; background:linear-gradient(transparent,rgba(0,0,0,.78)); }
+    .dl div { position:relative; padding:22px; }
+    .about {
+      display:grid; grid-template-columns:160px 1fr; gap:22px; align-items:center;
+      background:#fff; border-radius:24px; padding:22px; box-shadow:0 12px 32px rgba(6,40,32,.08);
+    }
+    .about img { width:160px; height:160px; object-fit:cover; border-radius:24px; }
+    footer { background:var(--green); color:#fff; padding:26px 7vw; display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap; }
+    footer a { color:var(--gold-2); }
+    @media (max-width:900px) {
+      .hero-inner, .grid, .dl, .about { grid-template-columns:1fr; }
+      .nav-links a:not(.btn) { display:none; }
+      .about img { width:120px; height:120px; }
+    }
   </style>
 </head>
 <body>
-  <header>
-    <nav>
-      <strong>مواقيتي</strong>
-      <div>
-        <a href="#features">المميزات</a>
-        <a href="#download">التحميل</a>
-        <a href="#about">المصمّم</a>
-      </div>
+  <header class="nav">
+    <a class="brand" href="#top"><img src="images/icon.png" alt="أيقونة مواقيتي"> مواقيتي</a>
+    <nav class="nav-links">
+      <a href="#features">المميزات</a>
+      <a href="#preview">الواجهة</a>
+      <a href="#download">التحميل</a>
+      <a href="#about">المصمّم</a>
+      <a class="btn" href="#download">حمّل التطبيق</a>
     </nav>
-    <div class="hero">
-      <h1>أوقات الصلاة، الأذان، والمصحف في تطبيق واحد</h1>
-      <p>مواقيتي يحسب المواقيت حسب موقعك، يؤذّن في وقت الصلاة، ويتيح قراءة مصحف المدينة حتى بدون إنترنت بعد تنزيله. يعمل على أندرويد وويندوز.</p>
-      <div class="cta">
-        <a class="btn" href="https://github.com/yalozair/Salaty/releases/latest/download/Salaty-latest.apk">تحميل أندرويد</a>
-        <a class="btn alt" href="https://github.com/yalozair/Salaty/releases/latest/download/Salaty-Setup.exe">تثبيت ويندوز</a>
+  </header>
+
+  <section class="hero" id="top">
+    <div class="hero-inner">
+      <div>
+        <p class="kicker">لأندرويد وويندوز</p>
+        <h1>أوقات الصلاة، الأذان، والمصحف في مكان واحد</h1>
+        <p class="lead">مواقيتي يحسب المواقيت حسب مدينتك، يؤذّن في وقت الصلاة أو يكتفي بإشعار، ويفتح مصحف المدينة حتى بدون إنترنت بعد تنزيله.</p>
+        <div class="cta">
+          <a class="btn" href="https://github.com/yalozair/Salaty/releases/latest/download/Salaty-latest.apk">تحميل أندرويد</a>
+          <a class="btn ghost" href="https://github.com/yalozair/Salaty/releases/latest/download/Salaty-Setup.exe">تثبيت ويندوز</a>
+        </div>
+        <div class="stats">
+          <div class="stat"><b>6</b> مواقيت يومياً</div>
+          <div class="stat"><b>604</b> صفحة مصحف</div>
+          <div class="stat"><b>2</b> أندرويد وويندوز</div>
+        </div>
+      </div>
+      <div>
+        <div class="phone" aria-hidden="true">
+          <div class="notch"></div>
+          <div class="screen">
+            <h3>مواقيتي</h3>
+            <p class="sub">المتبقي حتى الفجر</p>
+            <div class="row next"><b>الفجر</b><span>٤:٣٢</span></div>
+            <div class="row"><b>الشروق</b><span>٥:٥٨</span></div>
+            <div class="row"><b>الظهر</b><span>١٢:٠٦</span></div>
+            <div class="row"><b>العصر</b><span>٣:٢٨</span></div>
+            <div class="row"><b>المغرب</b><span>٦:١٢</span></div>
+            <div class="row"><b>العشاء</b><span>٧:٣٢</span></div>
+          </div>
+        </div>
+        <p class="caption">شكل الواجهة. الأوقات تتغير حسب مدينتك.</p>
       </div>
     </div>
-  </header>
+  </section>
+
   <main>
     <section id="features">
-      <h2>المميزات</h2>
+      <h2>مميزات واضحة، وصور من استخدامك اليومي</h2>
+      <p class="section-lead">كل بطاقة ميزة يستخدمها التطبيق فعلاً: من الأذان حتى تذكير الصيام.</p>
       <div class="grid">
-        <article class="card"><h3>مواقيت دقيقة</h3><p>حساب أم القرى افتراضياً، مع إمكانية تغيير طريقة الحساب وتعديل كل صلاة بالدقائق.</p></article>
-        <article class="card"><h3>أذان لكل صلاة</h3><p>صوت أذان كامل، أو إشعار فقط بصوت تختاره، ومستوى صوت مستقل لكل صلاة.</p></article>
-        <article class="card"><h3>أثناء المكالمة</h3><p>إذا كنت في اتصال أو مكالمة فيديو يظهر إشعار الوقت دون أن يقاطع الأذان صوت المتصل.</p></article>
-        <article class="card"><h3>مصحف المدينة</h3><p>صفحات المصحف مع تنزيل كامل للقراءة بدون إنترنت، وقراءة تفاعلية تعمل بلا اتصال.</p></article>
-        <article class="card"><h3>أذكار وتذكير الصيام</h3><p>أذكار الصباح والمساء وبعد الصلاة، وتذكير أيام الصيام ليلاً وقبل الفجر.</p></article>
-        <article class="card"><h3>تحديث من داخل التطبيق</h3><p>على ويندوز يُنزَّل التثبيت ويُشغَّل مباشرة. وعلى أندرويد يُحفظ الملف حتى لو منعت الحماية التثبيت.</p></article>
+        <article class="card">
+          <img src="images/hero-dawn.jpg" alt="مسجد وقت الفجر">
+          <div>
+            <h3>مواقيت حسب موقعك</h3>
+            <p>الحساب الافتراضي أم القرى، مع تغيير طريقة الحساب وتعديل كل صلاة بالدقائق إن أردت مطابقة مسجدك.</p>
+          </div>
+        </article>
+        <article class="card">
+          <img src="images/feature-adhan.jpg" alt="مئذنة وقت الأذان">
+          <div>
+            <h3>أذان لكل صلاة</h3>
+            <p>صوت أذان كامل، أو إشعار فقط بصوت تختاره. ومستوى صوت مستقل، فالفجر يمكن أن يكون أعلى من بقية الصلوات.</p>
+          </div>
+        </article>
+        <article class="card">
+          <img src="images/feature-notify.jpg" alt="إشعار الصلاة على الجوال">
+          <div>
+            <h3>أثناء المكالمة</h3>
+            <p>إذا كنت في اتصال أو مكالمة فيديو يظهر إشعار دخول الوقت، ولا يقاطع الأذان صوت المتصل.</p>
+          </div>
+        </article>
+        <article class="card">
+          <img src="images/feature-mushaf.jpg" alt="مصحف مفتوح">
+          <div>
+            <h3>مصحف المدينة</h3>
+            <p>صفحات المصحف، مع تنزيل المصحف كاملاً للقراءة بدون إنترنت. والشاشة تبقى مضاءة أثناء القراءة.</p>
+          </div>
+        </article>
+        <article class="card">
+          <img src="images/feature-fasting.jpg" alt="تمر وماء للسحور">
+          <div>
+            <h3>تذكير الصيام</h3>
+            <p>تنبيه الساعة 8 مساءً لليلة الصيام، وآخر الساعة 4:30 فجراً، في قناة مستقلة حتى لا يضيع بين الأذكار.</p>
+          </div>
+        </article>
+        <article class="card">
+          <img src="images/feature-windows.jpg" alt="التطبيق على الكمبيوتر">
+          <div>
+            <h3>ويندوز مع الأذان</h3>
+            <p>شاشة أذان تغطي الشاشة، أو نافذة يمكن إيقافها بزر الإيقاف أو Esc. والتحديث يُثبَّت من داخل البرنامج.</p>
+          </div>
+        </article>
       </div>
     </section>
+
+    <section id="preview">
+      <h2>الواجهة</h2>
+      <p class="section-lead">مواقيت، أذان، ومصحف. بنفس ألوان التطبيق.</p>
+      <div class="phones">
+        <div class="phone mini">
+          <div class="notch"></div>
+          <div class="screen">
+            <h3>مواقيتي</h3>
+            <p class="sub">اليوم</p>
+            <div class="row next"><b>الفجر</b><span>٤:٣٢</span></div>
+            <div class="row"><b>الظهر</b><span>١٢:٠٦</span></div>
+            <div class="row"><b>العصر</b><span>٣:٢٨</span></div>
+            <div class="row"><b>المغرب</b><span>٦:١٢</span></div>
+            <div class="row"><b>العشاء</b><span>٧:٣٢</span></div>
+          </div>
+        </div>
+        <div class="phone mini">
+          <div class="notch"></div>
+          <div class="screen dark">
+            <p class="gold">حان الآن</p>
+            <p class="adhan-title">أذان المغرب</p>
+            <p class="gold">حي على الصلاة</p>
+            <div class="row" style="margin-top:28px;justify-content:center;">إيقاف الأذان</div>
+          </div>
+        </div>
+        <div class="phone mini">
+          <div class="notch"></div>
+          <div class="screen">
+            <p class="sub">سورة الفاتحة</p>
+            <p class="ayah">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</p>
+            <p class="ayah">الْحَمْدُ لِلَّهِ رَبِّ الْعَالَمِينَ</p>
+            <p class="ayah">الرَّحْمَٰنِ الرَّحِيمِ</p>
+            <p class="ayah">مَالِكِ يَوْمِ الدِّينِ</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <section id="download">
       <h2>التحميل</h2>
-      <div class="grid">
-        <article class="card">
-          <h3>أندرويد</h3>
-          <p>ملف APK مباشر. بعد التثبيت يمكن استلام التحديثات من داخل التطبيق.</p>
-          <p><a href="https://github.com/yalozair/Salaty/releases/latest">كل الإصدارات على GitHub</a></p>
+      <p class="section-lead">أحدث نسخة منشورة على GitHub. بعد التثبيت تصل التحديثات من داخل التطبيق.</p>
+      <div class="dl">
+        <article style="background-image:linear-gradient(rgba(6,40,32,.25),rgba(6,40,32,.25)),url('images/feature-notify.jpg')">
+          <div>
+            <h3>أندرويد</h3>
+            <p>ملف APK مباشر لهواتف أندرويد.</p>
+            <p><a class="btn" href="https://github.com/yalozair/Salaty/releases/latest/download/Salaty-latest.apk">تحميل APK</a></p>
+          </div>
         </article>
-        <article class="card">
-          <h3>ويندوز</h3>
-          <p>مثبّت جاهز، أو نسخة محمولة بصيغة zip من صفحة الإصدار.</p>
-        </article>
-        <article class="card">
-          <h3>الويب</h3>
-          <p>نسخة المتصفح متاحة كملف مضغوط مع كل إصدار لمن يريد تشغيلها من متصفح.</p>
+        <article style="background-image:linear-gradient(rgba(6,40,32,.35),rgba(6,40,32,.35)),url('images/feature-windows.jpg')">
+          <div>
+            <h3>ويندوز</h3>
+            <p>مثبّت جاهز، والنسخة المحمولة في صفحة الإصدار.</p>
+            <p><a class="btn" href="https://github.com/yalozair/Salaty/releases/latest/download/Salaty-Setup.exe">تحميل المثبّت</a></p>
+          </div>
         </article>
       </div>
     </section>
+
     <section id="about">
       <h2>المصمّم</h2>
-      <article class="card">
-        <h3>المهندس يوسف العزير</h3>
-        <p>أخصائي تقنية معلومات. تصميم وتطوير تطبيق مواقيتي، مع اهتمام بالدعم الفني وإدارة الشبكات وحل مشاكل الأجهزة والبرمجيات.</p>
-        <p>واتساب: <a href="https://wa.me/967773640964">967773640964</a> — تلجرام: <a href="https://t.me/Eng_yousifalozair">Eng_yousifalozair</a></p>
-      </article>
+      <div class="about">
+        <img src="images/designer.png" alt="المهندس يوسف العزير">
+        <div>
+          <h3 style="margin:0 0 6px;">المهندس يوسف العزير</h3>
+          <p class="section-lead">أخصائي تقنية معلومات. تصميم وتطوير تطبيق مواقيتي، مع خبرة في الدعم الفني وإدارة الشبكات وحل مشاكل الأجهزة والبرمجيات.</p>
+          <p>
+            <a class="btn" href="https://wa.me/967773640964">واتساب</a>
+            <a class="btn ghost" style="color:var(--green);border-color:var(--green);margin-inline-start:8px;" href="https://t.me/Eng_yousifalozair">تلجرام</a>
+          </p>
+        </div>
+      </div>
     </section>
   </main>
+
   <footer>
     <span>مواقيتي</span>
-    <a href="https://github.com/yalozair/Salaty">المستودع على GitHub</a>
+    <a href="https://github.com/yalozair/Salaty/releases/latest">كل الإصدارات</a>
+    <a href="https://github.com/yalozair/Salaty">المستودع</a>
   </footer>
 </body>
 </html>
